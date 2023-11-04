@@ -70,6 +70,7 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
 
 
   function flipCellsAround(coord) {
+    console.log(coord)
     setBoard(oldBoard => {
       const [y, x] = coord.split("-").map(Number);
       // TODO: Make a (deep) copy of the oldBoard
@@ -107,17 +108,29 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   // make table board
 
   // TODO
+ if (hasWon(board)){
+  return (
+  <div> <h1> Congratulations, You have won!!!!</h1></div>
+  )
+  
+ 
+ }
 
+ else {
   return (
     <div className="Board">
+    
      <table>
+      <tbody>
       {board.map(function(row,ir){
-      return(<tr>{ row.map((el,ic)=> <Cell key={`${ir}-${ic}`} isLit={el} flipCellsAroundMe={flipCellsAround}></Cell>)
+      return(<tr key={ir}>{ row.map((el,ic)=> <Cell key={`${ir}-${ic}`} isLit={el} flipCellsAroundMe={evt =>flipCellsAround(`${ir}-${ic}`)}></Cell>)
 
       }</tr>)})}
+      </tbody>
      </table>
     </div>
   )
+    }
 }
 
 export default Board;
